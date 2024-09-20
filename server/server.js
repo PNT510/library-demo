@@ -10,6 +10,7 @@ require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extend: false}));
+app.use(express.static(path.join(__dirname, '../build')));
 
 //CONTROLLER
 const booksController = require('./controllers/books_controller');
@@ -18,4 +19,9 @@ app.use('/api/books', booksController);
 //LISTEN
 app.listen(4005, () => {
     console.log('Server is running on port 4005');
+})
+
+
+app.get('*',(req, res) =>{
+    res.sendFile(path,join(__dirname,'../build/index.html'));
 })
